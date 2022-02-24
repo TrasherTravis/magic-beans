@@ -3,16 +3,26 @@ import './App.css';
 import plantimage from './images/plantimage.png';
 import boywatering from './images/boywatering.png';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-// import { useEffect } from 'react';
-import { useSpring, animated } from 'react-spring';
+import { useRef, useState } from 'react';
+import { useSpring, animated, config } from 'react-spring';
+
+const calc = (x, y, rect) => [
+  -(y - rect.top - rect.height / 2) / 20,
+  (x - rect.left - rect.width / 2) / 20,
+  1,
+];
+const trans = (x, y, s) =>
+  `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
 function App() {
   const styles = useSpring({
-    loop: { reverse: true, config: { friction: 500} },
+    loop: { reverse: true, config: { friction: 500 } },
     from: { x: -280 },
     to: { x: 10 },
   });
-
+  const ref = useRef(null);
+  const [xys, set] = useState([0, 0, 1]);
+  const props = useSpring({ xys, config: 'stiff' });
   return (
     <Container style={{ height: '100vh' }} className='position-relative'>
       <Row>
@@ -20,13 +30,14 @@ function App() {
       </Row>
       <Row className='align-items-start align-items-stretch'>
         <Col sm lg={3}>
-          <Card className='mb-4'>
+          <div className='card mb-4'>
             <Card.Header className='py-0'>My Seeds</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>600 000</Card.Title>
               {/* <Card.Text className=''></Card.Text> */}
             </Card.Body>
-          </Card>
+          </div>
+
           <Card className='mb-4'>
             <Card.Header className='py-0'>My Stats</Card.Header>
             <Card.Body>
@@ -53,8 +64,16 @@ function App() {
             style={{ top: '-135px', left: '250px', ...styles }}
           />
           <Row sm={1} lg={2} className='g-2'>
-            <Col>
-              <Card className='locked-card'>
+            <Col ref={ref}>
+              <animated.div
+                className='card ccard locked-card'
+                style={{ transform: props.xys.to(trans) }}
+                onMouseLeave={() => set([0, 0, 1])}
+                onMouseMove={(e) => {
+                  const rect = ref.current.getBoundingClientRect();
+                  set(calc(e.clientX, e.clientY, rect));
+                }}
+              >
                 <img
                   className='plant-level'
                   src={plantimage}
@@ -79,7 +98,7 @@ function App() {
                     </Col>
                   </Row>
                 </Card.Body>
-              </Card>
+              </animated.div>
             </Col>
             <Col>
               <Card className='locked-card'>
