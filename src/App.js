@@ -1,7 +1,7 @@
 import './App.css';
 // import bodyBackground from './images/body-bg-2.gif';
-import plantImage from './images/plantImage.png';
-import boyWatering from './images/boyWatering.png';
+import plantimage from './images/plantimage.png';
+import boywatering from './images/boywatering.png';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
@@ -47,7 +47,7 @@ function App() {
         <Col sm lg={6} className='align-self-end position-relative'>
           <animated.img
             className='boy-watering position-absolute'
-            src={boyWatering}
+            src={boywatering}
             width='40%'
             alt='boy watering'
             style={{ top: '-135px', left: '250px', ...styles }}
@@ -57,7 +57,7 @@ function App() {
               <Card className='locked-card'>
                 <img
                   className='plant-level'
-                  src={plantImage}
+                  src={plantimage}
                   width='50%'
                   alt='plant level'
                 />
@@ -85,7 +85,7 @@ function App() {
               <Card className='locked-card'>
                 <img
                   className='plant-level'
-                  src={plantImage}
+                  src={plantimage}
                   width='50%'
                   alt='plant level'
                 />
