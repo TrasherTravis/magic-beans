@@ -3,7 +3,7 @@ import './App.css';
 import plantimage from './images/plantimage.png';
 import boywatering from './images/boywatering.png';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 function App() {
