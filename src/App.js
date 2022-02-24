@@ -1,46 +1,22 @@
 import './App.css';
 // import bodyBackground from './images/body-bg-2.gif';
-import plantImage from './images/plant-1.png';
-import boyWatering from './images/boy-watering-1.png';
+import plantImage from './images/plantImage.png';
+import boyWatering from './images/boyWatering.png';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useEffect } from 'react';
+import { useSpring, animated } from 'react-spring';
 
 function App() {
-  useEffect(() => {
-    // document.body.style.backgroundImage = `url(${bodyBackground})`;
-    // document.body.style.backgroundRepeat = 'no-repeat';
-    // document.body.style.backgroundAttachment = 'fixed';
-    // document.body.style.backgroundSize = 'cover';
-    // document.body.style.backgroundColor = "rgba('0, 0, 0, 0.5')";
-
-    // document.body.style = {
-    //   ...document.body.style,
-    //   backgroundImage: `url(${bodyBackground})`,
-    //   backgroundRepeat: 'no-repeat',
-    //   backgroundAttachment: 'fixed',
-    //   dbackgroundSize: 'cover',
-    //   backgroundColor: "rgba('0, 0, 0, 0.5')",
-    // };
-
-    // Object.assign(document.body.style,{
-    //   backgroundImage: `url(${bodyBackground})`,
-    //   backgroundRepeat: 'no-repeat',
-    //   backgroundAttachment: 'fixed',
-    //   backgroundSize: 'cover',
-    //   position:'relative'
-    // });
-
-    return () => {
-      document.body.style.backgroundColor = 'white';
-    };
-  }, []);
+  const styles = useSpring({
+    loop: { reverse: true, config: { friction: 500} },
+    from: { x: -280 },
+    to: { x: 10 },
+  });
 
   return (
     <Container style={{ height: '100vh' }} className='position-relative'>
       <Row>
-        <Col className='d-flex flex-column align-items-center'>
-          
-        </Col>
+        <Col className='d-flex flex-column align-items-center'></Col>
       </Row>
       <Row className='align-items-start align-items-stretch'>
         <Col sm lg={3}>
@@ -69,12 +45,12 @@ function App() {
           </Card>
         </Col>
         <Col sm lg={6} className='align-self-end position-relative'>
-        <img
+          <animated.img
             className='boy-watering position-absolute'
             src={boyWatering}
             width='40%'
             alt='boy watering'
-            style={{ top: '-135px', left: '250px' }}
+            style={{ top: '-135px', left: '250px', ...styles }}
           />
           <Row sm={1} lg={2} className='g-2'>
             <Col>
