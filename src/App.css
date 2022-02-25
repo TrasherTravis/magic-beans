@@ -76,9 +76,18 @@ button.btn-primary:hover {
   border-color: #bf9270;
 }
 
-.card:not(.locked-card) .card-header {
+button.btn-primary:disabled {
+  background-color: #C3B091;
+  border-color: #5c3d2e;
+  color: black
+}
+.card:not(.locked-card) .card-header, .level-ind {
   background-color: #5c3d2e;
   color: white;
+}
+
+.level-ind {
+  background-color: #184d47;
 }
 
 .card:not(.locked-card) {

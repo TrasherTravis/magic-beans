@@ -7,6 +7,7 @@ import connectButtonLogo from './images/connect-button-logo.png';
 import { Container, Row, Col, Card, Button, Navbar } from 'react-bootstrap';
 import { useRef, useState } from 'react';
 import { useSpring, animated } from 'react-spring';
+import Countdown, { zeroPad } from 'react-countdown';
 
 const calc = (x, y, rect) => [
   -(y - rect.top - rect.height / 2) / 20,
@@ -17,6 +18,20 @@ const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
 function App() {
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    return (
+      <Button disabled={completed ? false : true} variant='primary'>
+        CLAIM
+        {!completed ? (
+          <span>{` IN ${zeroPad(days * 24 + hours)}:${zeroPad(
+            minutes
+          )}:${zeroPad(seconds)}`}</span>
+        ) : (
+          ''
+        )}
+      </Button>
+    );
+  };
   const styles = useSpring({
     loop: { reverse: true, config: { friction: 500 } },
     from: { x: -280 },
@@ -52,6 +67,9 @@ function App() {
                 />
                 Get Seed
               </Button>
+              <Button className='ms-2 connect-button' variant='primary'>
+                Connect
+              </Button>
             </Container>
           </Navbar>
         </Col>
@@ -60,7 +78,7 @@ function App() {
       <Row className='align-items-start align-items-stretch'>
         <Col sm lg={3} className='d-flex flex-column justify-content-between'>
           <div className='card mb-4'>
-            <Card.Header className='py-1'>My Seeds</Card.Header>
+            <Card.Header className='text-center py-1'>My Seeds</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>600 000</Card.Title>
               {/* <Card.Text className=''></Card.Text> */}
@@ -68,7 +86,7 @@ function App() {
           </div>
 
           <Card className='mb-4'>
-            <Card.Header className='py-1'>My Stats</Card.Header>
+            <Card.Header className='text-center py-1'>My Stats</Card.Header>
             <Card.Body>
               <Card.Title className='mb-1 fs-4'>EST:</Card.Title>
               <Card.Text className='small'>100 Seeds/Day</Card.Text>
@@ -77,7 +95,7 @@ function App() {
             </Card.Body>
           </Card>
           <Card>
-            <Card.Header className='py-1'>My Beans</Card.Header>
+            <Card.Header className='text-center py-1'>My Beans</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>2</Card.Title>
               <Card.Text></Card.Text>
@@ -95,7 +113,7 @@ function App() {
           <Row sm={1} lg={2} className='g-2'>
             <Col ref={ref[0]}>
               <animated.div
-                className='card locked-card ccard'
+                className='card locked-card ccard h-100'
                 style={{
                   transform: cardNo === 1 ? props.xys.to(trans) : undefined,
                 }}
@@ -113,19 +131,25 @@ function App() {
                   alt='plant level'
                 />
                 <Card.Header className='py-1'></Card.Header>
-                <Card.Body>
+                <Card.Body className='d-flex flex-column position-relative'>
+                  <div className='position-absolute top-0 end-0 level-ind px-2'>
+                    LEVEL 7
+                  </div>
                   <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
                   <Card.Text className='small'>100 SEEDS</Card.Text>
                   <Card.Title className='mb-1 fs-4'>Pending Rewards</Card.Title>
                   <Card.Text className='small'>100 SEEDS</Card.Text>
                   <Card.Title className='mb-1 fs-4'>Daily Rewards</Card.Title>
                   <Card.Text className='small'>4% + 0.00% BONUS</Card.Text>
-                  <Row>
+                  <Row className='mt-auto'>
                     <Col className='d-flex justify-content-center'>
                       <Button className='me-4' variant='primary'>
                         COMPOUND
                       </Button>
-                      <Button variant='primary'>CLAIM</Button>
+                      <Countdown
+                          date={'2022-02-28T00:00:00'}
+                          renderer={renderer}
+                        />
                     </Col>
                   </Row>
                 </Card.Body>
@@ -133,7 +157,7 @@ function App() {
             </Col>
             <Col ref={ref[1]}>
               <animated.div
-                className='card locked-card ccard'
+                className='card locked-card ccard h-100'
                 style={{
                   transform: cardNo === 2 ? props.xys.to(trans) : undefined,
                 }}
@@ -152,14 +176,17 @@ function App() {
                 />
 
                 <Card.Header className='py-1'></Card.Header>
-                <Card.Body>
+                <Card.Body className='d-flex flex-column position-relative'>
+                  <div className='position-absolute top-0 end-0 level-ind px-2'>
+                    LEVEL 7
+                  </div>
                   <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
                   <Card.Text className='small'>100 SEEDS</Card.Text>
                   <Card.Title className='mb-1 fs-4'>Pending Rewards</Card.Title>
                   <Card.Text className='small'>100 SEEDS</Card.Text>
                   <Card.Title className='mb-1 fs-4'>Daily Rewards</Card.Title>
                   <Card.Text className='small'>4% + 0.00% BONUS</Card.Text>
-                  <Row>
+                  <Row className='mt-auto'>
                     <Col className='d-flex justify-content-center'>
                       <Button className='me-4' variant='primary'>
                         COMPOUND
@@ -174,14 +201,14 @@ function App() {
         </Col>
         <Col sm lg={3} className='d-flex flex-column justify-content-between'>
           <Card>
-            <Card.Header className='py-1'>$1.5</Card.Header>
+            <Card.Header className='text-center py-1'>$1.5</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>For 10 000 SEEDS</Card.Title>
               <Card.Text></Card.Text>
             </Card.Body>
           </Card>
           <Card>
-            <Card.Header className='py-1'>TVL</Card.Header>
+            <Card.Header className='text-center py-1'>TVL</Card.Header>
             <Card.Body>
               <Card.Title>650 000 000 SEEDS</Card.Title>
               {/* <Card.Text>100</Card.Text> */}
@@ -192,7 +219,7 @@ function App() {
             </Card.Body>
           </Card>
           <Card>
-            <Card.Header className='py-1'>Total Beans</Card.Header>
+            <Card.Header className='text-center py-1'>Total Beans</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>50 000</Card.Title>
               <Card.Text></Card.Text>
