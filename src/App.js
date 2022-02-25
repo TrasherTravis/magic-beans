@@ -2,9 +2,11 @@ import './App.css';
 // import bodyBackground from './images/body-bg-2.gif';
 import plantimage from './images/plantimage.png';
 import boywatering from './images/boywatering.png';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import logo from './images/logo.png';
+import connectButtonLogo from './images/connect-button-logo.png';
+import { Container, Row, Col, Card, Button, Navbar } from 'react-bootstrap';
 import { useRef, useState } from 'react';
-import { useSpring, animated, config } from 'react-spring';
+import { useSpring, animated } from 'react-spring';
 
 const calc = (x, y, rect) => [
   -(y - rect.top - rect.height / 2) / 20,
@@ -25,14 +27,40 @@ function App() {
   const [cardNo, setCardNo] = useState(null);
   const props = useSpring({ xys, config: 'stiff' });
   return (
-    <Container style={{ height: '100vh' }} className='position-relative'>
-      <Row>
-        <Col className='d-flex flex-column align-items-center'></Col>
+    <Container style={{ minHeight: '100vh' }} className='position-relative'>
+      <Row className='dummy-row align-items-center'>
+        <Col sm={12}>
+          <Navbar sticky='top'>
+            <Container>
+              <Navbar.Brand href='#home'>
+                <img
+                  src={logo}
+                  width='80'
+                  className='d-inline-block align-top'
+                  alt='React Bootstrap logo'
+                />
+              </Navbar.Brand>
+              <Button
+                className='ms-auto d-flex flex-row align-items-center connect-button'
+                variant='primary'
+              >
+                <img
+                  className='me-2'
+                  src={connectButtonLogo}
+                  width='20px'
+                  alt='connectButtonLogo'
+                />
+                Get Seed
+              </Button>
+            </Container>
+          </Navbar>
+        </Col>
       </Row>
+
       <Row className='align-items-start align-items-stretch'>
-        <Col sm lg={3}>
+        <Col sm lg={3} className='d-flex flex-column justify-content-between'>
           <div className='card mb-4'>
-            <Card.Header className='py-0'>My Seeds</Card.Header>
+            <Card.Header className='py-1'>My Seeds</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>600 000</Card.Title>
               {/* <Card.Text className=''></Card.Text> */}
@@ -40,7 +68,7 @@ function App() {
           </div>
 
           <Card className='mb-4'>
-            <Card.Header className='py-0'>My Stats</Card.Header>
+            <Card.Header className='py-1'>My Stats</Card.Header>
             <Card.Body>
               <Card.Title className='mb-1 fs-4'>EST:</Card.Title>
               <Card.Text className='small'>100 Seeds/Day</Card.Text>
@@ -49,7 +77,7 @@ function App() {
             </Card.Body>
           </Card>
           <Card>
-            <Card.Header className='py-0'>My Beans</Card.Header>
+            <Card.Header className='py-1'>My Beans</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>2</Card.Title>
               <Card.Text></Card.Text>
@@ -84,7 +112,7 @@ function App() {
                   width='50%'
                   alt='plant level'
                 />
-                <Card.Header className='py-0'></Card.Header>
+                <Card.Header className='py-1'></Card.Header>
                 <Card.Body>
                   <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
                   <Card.Text className='small'>100 SEEDS</Card.Text>
@@ -123,7 +151,7 @@ function App() {
                   alt='plant level'
                 />
 
-                <Card.Header className='py-0'></Card.Header>
+                <Card.Header className='py-1'></Card.Header>
                 <Card.Body>
                   <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
                   <Card.Text className='small'>100 SEEDS</Card.Text>
@@ -146,14 +174,14 @@ function App() {
         </Col>
         <Col sm lg={3} className='d-flex flex-column justify-content-between'>
           <Card>
-            <Card.Header className='py-0'>$1.5</Card.Header>
+            <Card.Header className='py-1'>$1.5</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>For 10 000 SEEDS</Card.Title>
               <Card.Text></Card.Text>
             </Card.Body>
           </Card>
           <Card>
-            <Card.Header className='py-0'>TVL</Card.Header>
+            <Card.Header className='py-1'>TVL</Card.Header>
             <Card.Body>
               <Card.Title>650 000 000 SEEDS</Card.Title>
               {/* <Card.Text>100</Card.Text> */}
@@ -164,7 +192,7 @@ function App() {
             </Card.Body>
           </Card>
           <Card>
-            <Card.Header className='py-0'>Total Beans</Card.Header>
+            <Card.Header className='py-1'>Total Beans</Card.Header>
             <Card.Body>
               <Card.Title className='mb-0'>50 000</Card.Title>
               <Card.Text></Card.Text>

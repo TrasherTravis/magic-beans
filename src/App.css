@@ -1,5 +1,15 @@
 /* 
  */
+.navbar {
+  border-radius: 0.5rem;
+  background: #b8e4f0;
+  backdrop-filter: blur(50px);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.connect-button {
+  border-radius: 0.75rem;
+}
 
 .locked-card.card .card-header {
   height: 125px;
@@ -41,8 +51,9 @@
   backdrop-filter: unset;
 }
 
-.container > .row:first-child {
-  padding-top: 30vh;
+.container > .dummy-row {
+  padding-top: 4vh;
+  padding-bottom: 22vh;
 }
 
 .plant-level {
@@ -54,13 +65,26 @@
 button.btn-primary {
   background-color: #184d47;
   border-color: #184d47;
+  background-color: #5c3d2e;
+  border-color: #5c3d2e;
   /* background-color: #483434;
   border-color: #483434; */
 }
 
+button.btn-primary:hover {
+  background-color: #bf9270;
+  border-color: #bf9270;
+}
 
+.card:not(.locked-card) .card-header {
+  background-color: #5c3d2e;
+  color: white;
+}
+
+.card:not(.locked-card) {
+  overflow: hidden;
+}
 /* .ccard, .ccard .locked-card.card {
   transition: box-shadow 0.5s;
   will-change: transform;
 } */
-
