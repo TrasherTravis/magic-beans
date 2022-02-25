@@ -1,3 +1,6 @@
+/* 
+ */
+
 .locked-card.card .card-header {
   height: 125px;
   background-color: transparent;
@@ -7,15 +10,15 @@
   background-position: 0% -30%;
   border-top-left-radius: 0.75rem;
   border-top-right-radius: 0.75rem;
+  /* backdrop-filter: unset; */
   border: none;
 }
 
 .locked-card.card .card-body {
-  background-color: #fff;
   border-bottom-left-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.192);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(25px);
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-top: none;
 }
@@ -23,10 +26,7 @@
 .card {
   border-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.192);
-  backdrop-filter: blur(10px);
-  /* height: 250px;
-  width: 600px;
-  border-radius: 15px; */
+  backdrop-filter: blur(25px);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -58,7 +58,9 @@ button.btn-primary {
   border-color: #483434; */
 }
 
-.ccard {
+
+/* .ccard, .ccard .locked-card.card {
   transition: box-shadow 0.5s;
   will-change: transform;
-}
+} */
+

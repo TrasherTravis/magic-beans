@@ -20,8 +20,9 @@ function App() {
     from: { x: -280 },
     to: { x: 10 },
   });
-  const ref = useRef(null);
+  const ref = [useRef(null), useRef(null)];
   const [xys, set] = useState([0, 0, 1]);
+  const [cardNo, setCardNo] = useState(null);
   const props = useSpring({ xys, config: 'stiff' });
   return (
     <Container style={{ height: '100vh' }} className='position-relative'>
@@ -64,13 +65,54 @@ function App() {
             style={{ top: '-135px', left: '250px', ...styles }}
           />
           <Row sm={1} lg={2} className='g-2'>
-            <Col ref={ref}>
+            <Col ref={ref[0]}>
               <animated.div
-                className='card ccard locked-card'
-                style={{ transform: props.xys.to(trans) }}
+                className='card locked-card ccard'
+                style={{
+                  transform: cardNo === 1 ? props.xys.to(trans) : undefined,
+                }}
                 onMouseLeave={() => set([0, 0, 1])}
                 onMouseMove={(e) => {
-                  const rect = ref.current.getBoundingClientRect();
+                  const rect = ref[0].current.getBoundingClientRect();
+                  setCardNo(1);
+                  set(calc(e.clientX, e.clientY, rect));
+                }}
+              >
+                <img
+                  className='plant-level'
+                  src={plantimage}
+                  width='50%'
+                  alt='plant level'
+                />
+                <Card.Header className='py-0'></Card.Header>
+                <Card.Body>
+                  <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
+                  <Card.Text className='small'>100 SEEDS</Card.Text>
+                  <Card.Title className='mb-1 fs-4'>Pending Rewards</Card.Title>
+                  <Card.Text className='small'>100 SEEDS</Card.Text>
+                  <Card.Title className='mb-1 fs-4'>Daily Rewards</Card.Title>
+                  <Card.Text className='small'>4% + 0.00% BONUS</Card.Text>
+                  <Row>
+                    <Col className='d-flex justify-content-center'>
+                      <Button className='me-4' variant='primary'>
+                        COMPOUND
+                      </Button>
+                      <Button variant='primary'>CLAIM</Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </animated.div>
+            </Col>
+            <Col ref={ref[1]}>
+              <animated.div
+                className='card locked-card ccard'
+                style={{
+                  transform: cardNo === 2 ? props.xys.to(trans) : undefined,
+                }}
+                onMouseLeave={() => set([0, 0, 1])}
+                onMouseMove={(e) => {
+                  const rect = ref[1].current.getBoundingClientRect();
+                  setCardNo(2);
                   set(calc(e.clientX, e.clientY, rect));
                 }}
               >
@@ -99,34 +141,6 @@ function App() {
                   </Row>
                 </Card.Body>
               </animated.div>
-            </Col>
-            <Col>
-              <Card className='locked-card'>
-                <img
-                  className='plant-level'
-                  src={plantimage}
-                  width='50%'
-                  alt='plant level'
-                />
-
-                <Card.Header className='py-0'></Card.Header>
-                <Card.Body>
-                  <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
-                  <Card.Text className='small'>100 SEEDS</Card.Text>
-                  <Card.Title className='mb-1 fs-4'>Pending Rewards</Card.Title>
-                  <Card.Text className='small'>100 SEEDS</Card.Text>
-                  <Card.Title className='mb-1 fs-4'>Daily Rewards</Card.Title>
-                  <Card.Text className='small'>4% + 0.00% BONUS</Card.Text>
-                  <Row>
-                    <Col className='d-flex justify-content-center'>
-                      <Button className='me-4' variant='primary'>
-                        COMPOUND
-                      </Button>
-                      <Button variant='primary'>CLAIM</Button>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
             </Col>
           </Row>
         </Col>
