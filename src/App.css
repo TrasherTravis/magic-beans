@@ -33,6 +33,11 @@
   border-top: none;
 }
 
+.locked-card.card .card-body:hover {
+  background-image: url(./images/bean-raining-bg-1.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .card {
   border-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.192);
@@ -77,23 +82,98 @@ button.btn-primary:hover {
 }
 
 button.btn-primary:disabled {
-  background-color: #C3B091;
+  background-color: #c3b091;
   border-color: #5c3d2e;
-  color: black
+  color: black;
 }
-.card:not(.locked-card) .card-header, .level-ind {
+.card:not(.locked-card) .card-header,
+.level-ind {
   background-color: #5c3d2e;
   color: white;
 }
 
 .level-ind {
-  background-color: #184d47;
+  background-color: transparent;
+
+  background-image: url(./images/bean-level-1.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .card:not(.locked-card) {
   overflow: hidden;
 }
+
+.footer-img {
+  height: 20vh;
+  background-image: url(./images/footer-top-2.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.footer-container {
+  background-image: url(./images/body-bg-bottom-2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0% 40%;
+  color: #f2f5c8;
+}
 /* .ccard, .ccard .locked-card.card {
   transition: box-shadow 0.5s;
   will-change: transform;
 } */
+
+.btn-effect {
+  transition: all 0.2s;
+}
+
+.btn-effect:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-effect:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* .btn-effect::after {
+    content: "";
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 0.75rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn-effect::after {
+  background-color: #fff;
+}
+
+.btn-effect:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+} */
+
+.btn-animated {
+  /* animation: moveInBottom 5s ease-out;
+    animation-fill-mode: backwards; */
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

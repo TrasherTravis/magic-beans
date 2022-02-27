@@ -21,7 +21,8 @@ code {
 }
 
 
-body:before {
+
+/* body:before {
     content: ' ';
     display: block;
     position: absolute;
@@ -32,6 +33,6 @@ body:before {
     opacity: 0.9;
     background-image:  url(./images/body-bg-2.gif);
     background-repeat: no-repeat;
-    /* background-position: 50% 0; */
+    background-position: 50% 0;
     background-size: cover;
-  }
+  } */
