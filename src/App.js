@@ -5,6 +5,7 @@ import boywatering from './images/boywatering.png';
 import logo from './images/logo.png';
 // import footerTop from './images/footer-top-1.gif';
 // import beanLevel from './images/bean-level-1.png';
+
 import connectButtonLogo from './images/connect-button-logo.png';
 import { Container, Row, Col, Card, Button, Navbar } from 'react-bootstrap';
 import { useRef, useState } from 'react';
