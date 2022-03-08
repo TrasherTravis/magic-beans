@@ -33,11 +33,17 @@
     />
     <style>
       body {
-        background-image: url(./images/body-bg-bottom-1.png), url(./images/body-bg-2.gif);
+        background-image: url(./images/body-bg-bottom-1.png),
+          url(./images/body-bg-2.gif);
         background-repeat: no-repeat, no-repeat;
-        background-size: contain, contain;
+        background-size: contain, cover;
         background-position: 0% 80vh, top left;
         background-color: #59c135;
+      }
+      @media (min-width: 1200px) {
+        body {
+          background-size: contain, contain;
+        }
       }
     </style>
 
