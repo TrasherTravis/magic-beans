@@ -126,7 +126,6 @@ function App() {
               isLast
             />
           </Col>
-
           <Col
             sm={12}
             md={5}
