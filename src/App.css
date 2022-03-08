@@ -56,15 +56,10 @@
   backdrop-filter: unset;
 }
 
-.container > .dummy-row {
+.container > .nav-row,
+.container-lg > .nav-row {
   padding-top: 4vh;
   padding-bottom: 22vh;
-}
-
-.plant-level {
-  position: absolute;
-  top: -55px;
-  left: 25%;
 }
 
 button.btn-primary {
@@ -177,3 +172,97 @@ button.btn-primary:disabled {
     transform: translateY(0px);
   }
 }
+
+.swiper-slide.swiper-slide-prev,
+.swiper-slide,
+.swiper-slide.swiper-slide-next {
+  visibility: hidden;
+}
+.swiper-slide.swiper-slide-active {
+  visibility: visible;
+}
+.swiper.swiper-initialized.swiper-horizontal {
+  overflow: visible;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+  /* margin-top: 1rem !important; */
+  order: 2 !important;
+  position: absolute;
+  bottom: -50px;
+  padding: 5px;
+}
+
+/* @media (min-width: 576px) { ... }
+
+@media (min-width: 768px) { ... }
+
+@media (min-width: 992px) { ... } */
+.plant-level {
+  position: absolute;
+  left: 5%;
+}
+@media (min-width: 576px) {
+  .plant-level {
+    top: -86%;
+  }
+}
+@media (min-width: 768px) {
+  .plant-level {
+    top: -46%;
+  }
+}
+@media (min-width: 992px) {
+  .plant-level {
+    top: -56%;
+  }
+}
+@media (min-width: 1200px) {
+  .swiper-slide.swiper-slide-next {
+    visibility: visible;
+  }
+  .plant-level {
+    top: -40%;
+  }
+}
+@media (min-width: 1400px) {
+  .swiper-slide.swiper-slide-next {
+    visibility: visible;
+  }
+  .plant-level {
+    top: -48%;
+  }
+}
+
+@media (min-width: 576px) {
+}
+
+button.swiper-pagination-bullet {
+  width: 30px;
+  height: 30px;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border-color: #5c3d2e;
+  color: #5c3d2e;
+  opacity: 1;
+  border: 1px solid;
+}
+button.swiper-pagination-bullet:hover {
+  color: white;
+  background-color: #bf9270;
+  border-color: #bf9270;
+}
+button.swiper-pagination-bullet-active {
+  background-color: #5c3d2e;
+  border-color: #5c3d2e;
+  color: white;
+}
+
+button.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgb(92 61 46 / 25%);
+}
+/* @media (min-width: 1400px) { ... } */
