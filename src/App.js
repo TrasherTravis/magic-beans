@@ -78,9 +78,8 @@ function App() {
             <animated.img
               className='boy-watering position-absolute'
               src={boywatering}
-              width='40%'
               alt='boy watering'
-              style={{ top: '-135px', left: '250px', ...styles }}
+              style={{ ...styles }}
             />
             {/* <Row sm={1} xl={2} className='g-2'> */}
             <Row>
@@ -89,6 +88,7 @@ function App() {
                 slidesPerGroup={1}
                 spaceBetween={0}
                 grabCursor={true}
+                speed={0}
                 breakpoints={{
                   1200: {
                     slidesPerView: 2,
