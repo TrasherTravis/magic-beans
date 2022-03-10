@@ -17,7 +17,7 @@ export const providerOptions = {
   walletconnect: {
     package: WalletConnect, // required
     options: {
-      infuraId: process.env.INFURA_KEY, // required
+      infuraId: 'https://bsc-dataseed.binance.org/', // required
     },
   },
 };
@@ -100,6 +100,8 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
     }
   }, [provider]);
 
+  console.log(account)
+
   return (
     <Row className='nav-row align-items-center'>
       <Col sm={12}>
@@ -139,7 +141,7 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
                 variant='primary'
                 onClick={disconnect}
               >
-                Disconnect
+                {account.slice(0,5) + '...' + account.slice(36,42)} Disconnect
               </Button>
             )}
           </Container>
