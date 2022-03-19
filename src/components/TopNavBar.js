@@ -100,8 +100,6 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
     }
   }, [provider]);
 
-  console.log(account)
-
   return (
     <Row className='nav-row align-items-center'>
       <Col sm={12}>
