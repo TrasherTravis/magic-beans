@@ -3,6 +3,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './App.css';
 
+import plantLevel1 from './images/plantimage/1.png';
+import plantLevel2 from './images/plantimage/2.png';
+import plantLevel3 from './images/plantimage/3.png';
+import plantLevel4 from './images/plantimage/4.png';
+import plantLevel5 from './images/plantimage/5.png';
+import plantLevel6 from './images/plantimage/6.png';
+
+
 import boywatering from './images/boywatering.png';
 import logo from './images/logo.png';
 import connectButtonLogo from './images/connect-button-logo.png';
@@ -54,8 +62,9 @@ function App() {
     tvl: 0,
     totalBeans: 0,
   });
+  const [plants, setPlants] = useState([]);
 
-  const getInitailData = async () => {
+  const getInitialData = async () => {
     const web3Modal = new Web3Modal({
       cacheProvider: true, // optional
       providerOptions, // required
@@ -77,12 +86,30 @@ function App() {
 
     const balance = await GARDEN.methods.balanceOf(accounts[0]).call();
     setData({ beans, est, rewards, balance, tvl, totalBeans });
+
+    const kingIds = await KING.methods.getKingIdsOf(accounts[0]).call();
+
+    let newPlants = [];
+
+    const kings = await KING.methods.getKingsByIds(kingIds).call();
+    kings.forEach(king => {
+      console.log(king)
+      newPlants.push({
+        level: 1,
+        dailyRewards: '4% + 0.00% BONUS',
+        plantLevel: plantLevel1,
+        lockedAmount: (+king[0][5] / 10**18).toFixed(0),
+        pendingRewards: (+king.pendingRewards / 10**18).toFixed(2),
+        id: king[0].id,
+        tokenName: king[0].name,
+        title: `${king[0].name} (${king[0].id})`
+      })
+    });
+    setPlants(newPlants);
   };
 
-  console.log(data)
-
   useEffect(() => {
-    getInitailData();
+    getInitialData();
   }, [])
 
   return (
@@ -162,7 +189,7 @@ function App() {
                   Navigation,
                 ]}
               >
-                {lockedCoinStats.map((lockedCoinStat, idx) => (
+                {plants.map((lockedCoinStat, idx) => (
                   <SwiperSlide key={`lockedCard-${idx}`}>
                     <LockedCoinCard
                       {...lockedCoinStat}

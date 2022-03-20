@@ -2,6 +2,13 @@ import { useState, useRef } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { useSpring, animated } from 'react-spring';
 import Countdown, { zeroPad } from 'react-countdown';
+import Web3Modal from 'web3modal';
+import Web3 from 'web3'
+import { ethers } from 'ethers';
+
+import { providerOptions } from './TopNavBar';
+import KING_ABI from '../abi/KING_ABI.json';
+import { KING_CONTRACT } from '../data/contracts';
 
 const calc = (x, y, rect) => [
   (y - rect.top - rect.height / 2) / 20,
@@ -17,10 +24,48 @@ export const LockedCoinCard = ({
   pendingRewards,
   dailyRewards,
   plantimage,
+  title,
+  id
 }) => {
   const [xys, set] = useState([0, 0, 1]);
   const props = useSpring({ xys, config: 'stiff' });
   const ref = useRef(null);
+
+  const claim = async () => {
+    const web3Modal = new Web3Modal({
+      cacheProvider: true, // optional
+      providerOptions, // required
+    });
+    const provider = await web3Modal.connect();
+    const web3 = new Web3(provider);
+
+    const library = new ethers.providers.Web3Provider(provider);
+    const accounts = await library.listAccounts();
+
+    const KING = new web3.eth.Contract(KING_ABI, KING_CONTRACT);
+
+    await KING.methods.cashoutReward(id).send({
+      from: accounts[0],
+    });
+  }
+
+  const compound = async () => {
+    const web3Modal = new Web3Modal({
+      cacheProvider: true, // optional
+      providerOptions, // required
+    });
+    const provider = await web3Modal.connect();
+    const web3 = new Web3(provider);
+
+    const library = new ethers.providers.Web3Provider(provider);
+    const accounts = await library.listAccounts();
+
+    const KING = new web3.eth.Contract(KING_ABI, KING_CONTRACT);
+
+    await KING.methods.compoundReward(id).send({
+      from: accounts[0],
+    });
+  }
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     return (
@@ -28,6 +73,7 @@ export const LockedCoinCard = ({
         className='btn-effect btn-animated'
         disabled={completed ? false : true}
         variant='primary'
+        onClick={() => claim()}
       >
         CLAIM
         {!completed ? (
@@ -40,6 +86,7 @@ export const LockedCoinCard = ({
       </Button>
     );
   };
+
   return (
     <Col ref={ref}>
       <animated.div
@@ -63,8 +110,8 @@ export const LockedCoinCard = ({
         <Card.Body className='d-flex flex-column'>
           <Row>
             <Col>
-              <Card.Title className='mb-1 fs-4'>Locked Amount</Card.Title>
-              <Card.Text className='small mb-3'>{lockedAmount}</Card.Text>
+              <Card.Title className='mb-1 fs-4'>{title}</Card.Title>
+              <Card.Text className='small mb-3'>{lockedAmount} SEEDS</Card.Text>
             </Col>
             <Col className='pe-0'>
               <div className='d-flex align-items-center justify-content-center level-ind h-100'>
@@ -74,7 +121,7 @@ export const LockedCoinCard = ({
           </Row>
 
           <Card.Title className='mb-1 fs-4'>Pending Rewards</Card.Title>
-          <Card.Text className='small'>{pendingRewards}</Card.Text>
+          <Card.Text className='small'>{pendingRewards} SEEDS</Card.Text>
           <Card.Title className='mb-1 fs-4'>Daily Rewards</Card.Title>
           <Card.Text className='small'>{dailyRewards}</Card.Text>
           <Row className='mt-auto'>
@@ -82,6 +129,7 @@ export const LockedCoinCard = ({
               <Button
                 className='me-4 btn-effect btn-animated'
                 variant='primary'
+                onClick={() => compound()}
               >
                 COMPOUND
               </Button>
