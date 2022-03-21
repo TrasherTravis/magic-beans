@@ -25,8 +25,7 @@ export const LockedCoinCard = ({
   dailyRewards,
   plantimage,
   title,
-  id,
-  time
+  id
 }) => {
   const [xys, set] = useState([0, 0, 1]);
   const props = useSpring({ xys, config: 'stiff' });
@@ -131,19 +130,10 @@ export const LockedCoinCard = ({
                 className='me-4 btn-effect btn-animated'
                 variant='primary'
                 onClick={() => compound()}
-                disabled={time > new Date() ? true : false}
               >
                 COMPOUND
               </Button>
-              <Button
-                className='btn-effect btn-animated'
-                disabled={time > new Date() ? true : false}
-                variant='primary'
-                onClick={() => claim()}
-              >
-                CLAIM
-              </Button>
-              {/* <Countdown disabled={time > new Date() ? false : true} date={'2022-03-10T00:00:00'} renderer={renderer} /> */}
+              <Countdown date={'2022-03-10T00:00:00'} renderer={renderer} />
             </Col>
           </Row>
         </Card.Body>
