@@ -93,7 +93,6 @@ function App() {
 
     const kings = await KING.methods.getKingsByIds(kingIds).call();
     kings.forEach(king => {
-      console.log(king)
       newPlants.push({
         level: 1,
         dailyRewards: '4% + 0.00% BONUS',
@@ -102,6 +101,7 @@ function App() {
         pendingRewards: (+king.pendingRewards / 10**18).toFixed(2),
         id: king[0].id,
         tokenName: king[0].name,
+        time: new Date((+king[0].lastProcessingTimestamp + 14400) * 1000),
         title: `${king[0].name} (${king[0].id})`
       })
     });
