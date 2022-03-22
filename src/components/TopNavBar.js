@@ -38,6 +38,7 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
   const [verified, setVerified] = useState();
 
   const connectWallet = async () => {
+    console.log('connect')
     try {
       const provider = await web3Modal.connect();
       const library = new ethers.providers.Web3Provider(provider);
@@ -65,7 +66,7 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
   };
 
   useEffect(() => {
-    if (web3Modal.cachedProvider) {
+    if(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') === '"injected"') {
       connectWallet();
     }
   }, []);
@@ -129,7 +130,7 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
               <Button
                 className='ms-2 connect-button btn-effect btn-animated'
                 variant='primary'
-                onClick={connectWallet}
+                onClick={() => connectWallet()}
               >
                 Connect Wallet
               </Button>

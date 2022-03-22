@@ -64,14 +64,14 @@ function App() {
   });
   const [plants, setPlants] = useState([]);
 
+  const web3Modal = new Web3Modal({
+    cacheProvider: true, // optional
+    providerOptions, // required
+  });
+
   const getInitialData = async () => {
-    const web3Modal = new Web3Modal({
-      cacheProvider: true, // optional
-      providerOptions, // required
-    });
     const provider = await web3Modal.connect();
     const web3 = new Web3(provider);
-
     const library = new ethers.providers.Web3Provider(provider);
     const accounts = await library.listAccounts();
 
@@ -81,10 +81,12 @@ function App() {
     const beans = await KING.methods.balanceOf(accounts[0]).call();
     const rewards = await KING.methods.calculateTotalPendingReward(accounts[0]).call();
     const est = await KING.methods.calculateEstimatedRewardPerDay(accounts[0]).call();
+
     const tvl = await KING.methods.totalValueLocked().call();
     const totalBeans = await KING.methods.totalSupply().call();
 
     const balance = await GARDEN.methods.balanceOf(accounts[0]).call();
+
     setData({ beans, est, rewards, balance, tvl, totalBeans });
 
     const kingIds = await KING.methods.getKingIdsOf(accounts[0]).call();
@@ -109,8 +111,10 @@ function App() {
   };
 
   useEffect(() => {
-    getInitialData();
-  }, [])
+    if(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') === '"injected"') {
+      getInitialData();
+    }
+  }, []);
 
   return (
     <>
