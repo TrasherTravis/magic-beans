@@ -27,7 +27,7 @@ const web3Modal = new Web3Modal({
   providerOptions, // required
 });
 
-export const TopNavBar = ({ logo, connectButtonLogo }) => {
+export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
   const [provider, setProvider] = useState();
   const [account, setAccount] = useState();
   const [error, setError] = useState('');
@@ -47,7 +47,10 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
       setProvider(provider);
       if (accounts) setAccount(accounts[0]);
       setChainId(network.chainId);
+      getAllData();
+      console.log('done');
     } catch (error) {
+      console.log('err', error);
       setError(error);
     }
   };
@@ -64,12 +67,6 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
     await web3Modal.clearCachedProvider();
     refreshState();
   };
-
-  useEffect(() => {
-    if(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') === '"injected"') {
-      connectWallet();
-    }
-  }, []);
 
   useEffect(() => {
     if (provider?.on) {
@@ -140,7 +137,7 @@ export const TopNavBar = ({ logo, connectButtonLogo }) => {
                 variant='primary'
                 onClick={disconnect}
               >
-                {account.slice(0,5) + '...' + account.slice(36,42)} Disconnect
+                {account.slice(0,2) + '...' + account.slice(39,42)} Disconnect
               </Button>
             )}
           </Container>

@@ -62,6 +62,11 @@ function App() {
     tvl: 0,
     totalBeans: 0,
   });
+  const [mainData, setMainData] = useState({
+    tvl: 0,
+    totalBeans: 0,
+  });
+
   const [plants, setPlants] = useState([]);
 
   const web3Modal = new Web3Modal({
@@ -69,7 +74,20 @@ function App() {
     providerOptions, // required
   });
 
+  const getMainDataContract = async () => {
+   
+    const web3 = new Web3('https://api.avax-test.network/ext/bc/C/rpc');
+
+    const KING = new web3.eth.Contract(KING_ABI, KING_CONTRACT);
+
+    const tvl = await KING.methods.totalValueLocked().call();
+    const totalBeans = await KING.methods.totalSupply().call();
+
+    setMainData({ tvl, totalBeans });
+  }
+
   const getInitialData = async () => {
+    console.log('start')
     const provider = await web3Modal.connect();
     const web3 = new Web3(provider);
     const library = new ethers.providers.Web3Provider(provider);
@@ -82,12 +100,9 @@ function App() {
     const rewards = await KING.methods.calculateTotalPendingReward(accounts[0]).call();
     const est = await KING.methods.calculateEstimatedRewardPerDay(accounts[0]).call();
 
-    const tvl = await KING.methods.totalValueLocked().call();
-    const totalBeans = await KING.methods.totalSupply().call();
-
     const balance = await GARDEN.methods.balanceOf(accounts[0]).call();
 
-    setData({ beans, est, rewards, balance, tvl, totalBeans });
+    setData({ beans, est, rewards, balance });
 
     const kingIds = await KING.methods.getKingIdsOf(accounts[0]).call();
 
@@ -110,17 +125,21 @@ function App() {
     setPlants(newPlants);
   };
 
+  const getAllData = () => {
+    console.log('all data')
+    getInitialData();
+    getMainDataContract();
+  };
+
   useEffect(() => {
-    if(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') === '"injected"') {
-      getInitialData();
-    }
+    getMainDataContract();
   }, []);
 
   return (
     <>
       <MintModal show={modalShow} onHide={() => setModalShow(false)} />
       <Container fluid='lg' className='min-vh-100 position-relative p-4 p-xl-0'>
-        <TopNavBar {...{ logo, connectButtonLogo }} />
+        <TopNavBar {...{ logo, connectButtonLogo, getAllData }}/>
         <Row className='align-items-stretch'>
           <Col
             sm={12}
@@ -211,10 +230,10 @@ function App() {
             className='d-flex flex-column justify-content-between'
           >
             <StatCard heading='$1.5' list={priceStat} titleStyle='mb-0 fs-4' />
-            <StatCard heading='TVL' list={[{ title: `${(data.tvl / 10**18).toFixed(2)} SEEDS` }, { title: '$10 000' }]} />
+            <StatCard heading='TVL' list={[{ title: `${(mainData.tvl / 10**18).toFixed(2)} SEEDS` }, { title: '$10 000' }]} />
             <StatCard
               heading='Total Beans'
-              list={[{ title: data.totalBeans }]}
+              list={[{ title: mainData.totalBeans }]}
               titleStyle='mb-0 fs-4'
               isLast
             />
