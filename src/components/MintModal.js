@@ -3,6 +3,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import Web3Modal from 'web3modal';
 import Web3 from 'web3'
 import { ethers } from 'ethers';
+import { toast } from 'react-toastify';
 
 import { providerOptions } from '../components/TopNavBar'
 import KING_ABI from '../abi/KING_ABI.json';
@@ -14,7 +15,7 @@ export const MintModal = (props) => {
   const [value, setValue] = useState('');
 
   const mint = async () => {
-    if(name.length < 5 || value < 42000) return alert('Name must have minimum 4 characters and value must be greater than 42000');
+    if(name.length < 5 || value < 42000) return toast.error('Name must have minimum 4 characters');
     const web3Modal = new Web3Modal({
       cacheProvider: true, // optional
       providerOptions, // required
@@ -35,11 +36,14 @@ export const MintModal = (props) => {
     })
     .on('receipt', (receipt) => {
       console.log(receipt);
+      toast.success('Your Minted a New Bean Successfully');
+
     })
     .on('confirmation', (confirmationNumber, receipt) => {
       console.log(confirmationNumber, receipt);
     })
     .on('error', (error) => {
+      toast.error('Transaction Failed');
       console.log(error);
     })
   }

@@ -87,7 +87,6 @@ function App() {
   }
 
   const getInitialData = async () => {
-    console.log('start')
     const provider = await web3Modal.connect();
     const web3 = new Web3(provider);
     const library = new ethers.providers.Web3Provider(provider);
@@ -126,7 +125,6 @@ function App() {
   };
 
   const getAllData = () => {
-    console.log('all data')
     getInitialData();
     getMainDataContract();
   };
@@ -164,6 +162,7 @@ function App() {
               heading='My Beans'
               list={[{ title: data.beans }]}
               titleStyle='mb-0 fs-4'
+              balance={data.balance / 10**18}
               isLast
               hasClaimButton
               showModal={() => setModalShow(true)}
