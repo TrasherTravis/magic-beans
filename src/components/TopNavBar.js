@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Navbar } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
@@ -38,7 +39,6 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
   const [verified, setVerified] = useState();
 
   const connectWallet = async () => {
-    console.log('connect')
     try {
       const provider = await web3Modal.connect();
       const library = new ethers.providers.Web3Provider(provider);
@@ -48,7 +48,7 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
       if (accounts) setAccount(accounts[0]);
       setChainId(network.chainId);
       getAllData();
-      console.log('done');
+      if(network.chainId !== 43113 && network.chainId !== 43114) return toast.error('Please select Avalanche Mainnet');
     } catch (error) {
       console.log('err', error);
       setError(error);
@@ -137,7 +137,7 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
                 variant='primary'
                 onClick={disconnect}
               >
-                {account.slice(0,2) + '...' + account.slice(39,42)} Disconnect
+                {account.slice(0,5) + '...' + account.slice(36,42)} Disconnect
               </Button>
             )}
           </Container>

@@ -7,6 +7,7 @@ export const StatCard = ({
   isLast,
   hasClaimButton,
   showModal,
+  balance
 }) => {
   return (
     <Card className={!isLast && 'mb-4'}>
@@ -21,6 +22,7 @@ export const StatCard = ({
             <Button
               className='w-50 btn-effect btn-animated'
               variant='primary'
+              disabled={balance >= 42000 ? false : true }
               onClick={showModal}
             >
               MINT

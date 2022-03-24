@@ -5,6 +5,7 @@ import Countdown, { zeroPad } from 'react-countdown';
 import Web3Modal from 'web3modal';
 import Web3 from 'web3'
 import { ethers } from 'ethers';
+import { toast } from 'react-toastify';
 
 import { providerOptions } from './TopNavBar';
 import KING_ABI from '../abi/KING_ABI.json';
@@ -47,7 +48,22 @@ export const LockedCoinCard = ({
 
     await KING.methods.cashoutReward(id).send({
       from: accounts[0],
-    });
+    })
+    .on('transactionHash', (hash) => {
+      console.log(hash);
+    })
+    .on('receipt', (receipt) => {
+      console.log(receipt);
+      toast.success('Rewards Claimed Successfully');
+
+    })
+    .on('confirmation', (confirmationNumber, receipt) => {
+      console.log(confirmationNumber, receipt);
+    })
+    .on('error', (error) => {
+      toast.error('Transaction Failed');
+      console.log(error);
+    })
   }
 
   const compound = async () => {
@@ -65,7 +81,22 @@ export const LockedCoinCard = ({
 
     await KING.methods.compoundReward(id).send({
       from: accounts[0],
-    });
+    })
+    .on('transactionHash', (hash) => {
+      console.log(hash);
+    })
+    .on('receipt', (receipt) => {
+      console.log(receipt);
+      toast.success('Your Tokens are Compounded');
+
+    })
+    .on('confirmation', (confirmationNumber, receipt) => {
+      console.log(confirmationNumber, receipt);
+    })
+    .on('error', (error) => {
+      toast.error('Transaction Failed');
+      console.log(error);
+    })
   }
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -127,7 +158,31 @@ export const LockedCoinCard = ({
           <Card.Text className='small'>{dailyRewards}</Card.Text>
           <Row className='mt-auto'>
             <Col className='d-flex justify-content-center'>
-              <Button
+              {
+                time > new Date() ? (
+                  <Countdown disabled={new Date(time).toISOString() > new Date() ? false : true} date={new Date(time).toISOString()} renderer={renderer} />
+                ) : (
+                  <>
+                    <Button
+                      className='me-4 btn-effect btn-animated'
+                      variant='primary'
+                      onClick={() => compound()}
+                      disabled={time > new Date() ? true : false}
+                    >
+                      COMPOUND
+                    </Button>
+                    <Button
+                      className='btn-effect btn-animated'
+                      disabled={time > new Date() ? true : false}
+                      variant='primary'
+                      onClick={() => claim()}
+                    >
+                      CLAIM
+                    </Button>
+                  </>
+                )
+              }
+              {/* <Button
                 className='me-4 btn-effect btn-animated'
                 variant='primary'
                 onClick={() => compound()}
@@ -142,7 +197,7 @@ export const LockedCoinCard = ({
                 onClick={() => claim()}
               >
                 CLAIM
-              </Button>
+              </Button> */}
               {/* <Countdown disabled={time > new Date() ? false : true} date={'2022-03-10T00:00:00'} renderer={renderer} /> */}
             </Col>
           </Row>
