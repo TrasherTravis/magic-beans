@@ -72,11 +72,17 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
         console.log('accountsChanged', accounts);
-        if (accounts) setAccount(accounts[0]);
+        if (accounts) {
+          setAccount(accounts[0]);
+          getAllData();
+        };
       };
 
       const handleChainChanged = (_hexChainId) => {
         setChainId(_hexChainId);
+        console.log(parseInt(_hexChainId, 16));
+        if(parseInt(_hexChainId, 16) !== 43113 && parseInt(_hexChainId, 16) !== 43114) return toast.error('Please select Avalanche Mainnet');
+        getAllData();
       };
 
       const handleDisconnect = () => {

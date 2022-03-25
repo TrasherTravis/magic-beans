@@ -27,7 +27,8 @@ export const LockedCoinCard = ({
   plantimage,
   title,
   id,
-  time
+  time,
+  getAllData
 }) => {
   const [xys, set] = useState([0, 0, 1]);
   const props = useSpring({ xys, config: 'stiff' });
@@ -55,6 +56,7 @@ export const LockedCoinCard = ({
     .on('receipt', (receipt) => {
       console.log(receipt);
       toast.success('Rewards Claimed Successfully');
+      getAllData();
 
     })
     .on('confirmation', (confirmationNumber, receipt) => {
@@ -88,7 +90,7 @@ export const LockedCoinCard = ({
     .on('receipt', (receipt) => {
       console.log(receipt);
       toast.success('Your Tokens are Compounded');
-
+      getAllData();
     })
     .on('confirmation', (confirmationNumber, receipt) => {
       console.log(confirmationNumber, receipt);

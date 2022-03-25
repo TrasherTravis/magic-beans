@@ -15,7 +15,8 @@ export const MintModal = (props) => {
   const [value, setValue] = useState('');
 
   const mint = async () => {
-    if(name.length < 5 || value < 42000) return toast.error('Name must have minimum 4 characters');
+    if(name.length < 4) return toast.error('Name must have minimum 4 characters');
+    if(value < 42000) return toast.error('Minimum 42000 SEED required to Mint Bean');
     const web3Modal = new Web3Modal({
       cacheProvider: true, // optional
       providerOptions, // required

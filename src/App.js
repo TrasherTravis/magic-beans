@@ -216,6 +216,7 @@ function App() {
                     <LockedCoinCard
                       {...lockedCoinStat}
                       plantimage={lockedCoinStat.plantLevel}
+                      getAllData={getAllData}
                     />
                   </SwiperSlide>
                 ))}
