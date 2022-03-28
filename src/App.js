@@ -109,14 +109,16 @@ function App() {
 
     const kings = await KING.methods.getKingsByIds(kingIds).call();
     kings.forEach(king => {
+      const level = +king[0].kingValue === 0 ? plantLevel1 : +king[0].kingValue === 1 ? plantLevel2 : +king[0].kingValue === 2 ? plantLevel3 : +king[0].kingValue === 3 ? plantLevel4 : +king[0].kingValue === 4 ? plantLevel5 : plantLevel6;
       newPlants.push({
         level: 1,
-        dailyRewards: '4% + 0.00% BONUS',
-        plantLevel: plantLevel1,
-        lockedAmount: (+king[0][5] / 10**18).toFixed(0),
+        dailyRewards: '4% + 0.00%',
+        plantLevel: level,
+        lockedAmount: (+king[0][6] / 10**18).toFixed(0),
         pendingRewards: (+king.pendingRewards / 10**18).toFixed(2),
         id: king[0].id,
         tokenName: king[0].name,
+        kingValue: king[0].kingValue,
         time: new Date((+king[0].lastProcessingTimestamp + 14400) * 1000),
         title: `${king[0].name} (${king[0].id})`
       })
@@ -135,7 +137,7 @@ function App() {
 
   return (
     <>
-      <MintModal show={modalShow} onHide={() => setModalShow(false)} />
+      <MintModal show={modalShow} onHide={() => setModalShow(false)} onResetStore={() => getAllData()}/>
       <Container fluid='lg' className='min-vh-100 position-relative p-4 p-xl-0'>
         <TopNavBar {...{ logo, connectButtonLogo, getAllData }}/>
         <Row className='align-items-stretch'>
@@ -153,8 +155,8 @@ function App() {
             <StatCard
               heading='My Stats'
               list={[
-                { title: 'EST:', text: `${(data.est / 10**18).toFixed(2)} Seeds/Day` },
-                { title: 'Pending Rewards:', text: (data.rewards / 10**18).toFixed(2) },
+                { title: 'EST:', text: <><span className='cardParagraph'>{(data.est / 10**18).toFixed(2)}</span> Seeds/Day</> },
+                { title: 'Pending Rewards:', text: <span className='cardParagraph'> {(data.rewards / 10**18).toFixed(2)} </span> },
               ]}
               titleStyle='mb-1 fs-4'
             />
@@ -216,6 +218,7 @@ function App() {
                     <LockedCoinCard
                       {...lockedCoinStat}
                       plantimage={lockedCoinStat.plantLevel}
+                      kingValue={lockedCoinStat.kingValue}
                       getAllData={getAllData}
                     />
                   </SwiperSlide>

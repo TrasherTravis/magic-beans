@@ -120,7 +120,7 @@ export const LockedCoinCard = ({
       </Button>
     );
   };
-
+  
   return (
     <Col ref={ref}>
       <animated.div
@@ -145,7 +145,7 @@ export const LockedCoinCard = ({
           <Row>
             <Col>
               <Card.Title className='mb-1 fs-4'>{title}</Card.Title>
-              <Card.Text className='small mb-3'>{lockedAmount} SEEDS</Card.Text>
+              <Card.Text className='small mb-3'><span className='cardParagraph'>{lockedAmount}</span> SEEDS</Card.Text>
             </Col>
             <Col className='pe-0'>
               <div className='d-flex align-items-center justify-content-center level-ind h-100'>
@@ -155,9 +155,9 @@ export const LockedCoinCard = ({
           </Row>
 
           <Card.Title className='mb-1 fs-4'>Pending Rewards</Card.Title>
-          <Card.Text className='small'>{pendingRewards} SEEDS</Card.Text>
+          <Card.Text className='small'><span className='cardParagraph'>{pendingRewards}</span> SEEDS </Card.Text>
           <Card.Title className='mb-1 fs-4'>Daily Rewards</Card.Title>
-          <Card.Text className='small'>{dailyRewards}</Card.Text>
+          <Card.Text className='small'><span className='cardParagraph'>{dailyRewards}</span> BONUS </Card.Text>
           <Row className='mt-auto'>
             <Col className='d-flex justify-content-center'>
               {

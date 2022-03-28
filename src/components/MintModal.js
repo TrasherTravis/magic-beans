@@ -38,7 +38,7 @@ export const MintModal = (props) => {
     .on('receipt', (receipt) => {
       console.log(receipt);
       toast.success('Your Minted a New Bean Successfully');
-
+      props.onResetStore();
     })
     .on('confirmation', (confirmationNumber, receipt) => {
       console.log(confirmationNumber, receipt);

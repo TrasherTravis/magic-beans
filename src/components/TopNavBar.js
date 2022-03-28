@@ -39,7 +39,15 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
   const [verified, setVerified] = useState();
 
   const connectWallet = async () => {
+    // WEB3_CONNECT_CACHED_PROVIDER "injected"
+    // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', 'injected');
+    // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
+    if (web3Modal.cachedProvider) {
+      // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
+      await web3Modal.connect();
+    }
     try {
+      // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
       const provider = await web3Modal.connect();
       const library = new ethers.providers.Web3Provider(provider);
       const accounts = await library.listAccounts();
@@ -64,7 +72,7 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
   };
 
   const disconnect = async () => {
-    await web3Modal.clearCachedProvider();
+    // await web3Modal.clearCachedProvider();
     refreshState();
   };
 
