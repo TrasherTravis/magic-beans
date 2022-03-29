@@ -241,7 +241,7 @@ function App() {
             className='d-flex flex-column justify-content-between'
           >
             <StatCard heading='$1.5' list={priceStat} titleStyle='mb-0 fs-4' />
-            <StatCard heading='TVL' list={[{ title: `${(mainData.tvl / 10**18).toFixed(2)} SEEDS` }, { title: '$10 000' }]} />
+            <StatCard heading='TVL' list={[{ title: `${(mainData.tvl / 10**18).toFixed(2)} SEEDS` }, { title: 'Comming Soon!' }]} />
             <StatCard
               heading='Total Beans'
               list={[{ title: mainData.totalBeans }]}

@@ -12,7 +12,7 @@ export const myAllStat = [
 ];
 export const myBeansStat = [{ title: '2' }];
 export const priceStat = [{ title: 'For 10 000 SEEDS' }];
-export const TVLStat = [{ title: '650 000 000 SEEDS' }, { title: '$10 000' }];
+export const TVLStat = [{ title: '650 000 000 SEEDS' }, { title: 'Comming Soon!' }];
 export const totalBeansStat = [{ title: '50 000' }];
 export const lockedCoinStats = [
   {
