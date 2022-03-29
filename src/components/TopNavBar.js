@@ -151,7 +151,7 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
                 variant='primary'
                 onClick={disconnect}
               >
-                {account.slice(0,5) + '...' + account.slice(36,42)} Disconnect
+                {account.slice(0,2) + '...' + account.slice(39,42)} Disconnect
               </Button>
             )}
           </Container>

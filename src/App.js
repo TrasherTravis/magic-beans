@@ -86,6 +86,14 @@ function App() {
     setMainData({ tvl, totalBeans });
   }
 
+  const shortName = (name) => {
+    if(name.length > 8) {
+      return name.slice(0, 7) + '...';
+    } else {
+      return name;
+    }
+  }
+
   const getInitialData = async () => {
     const provider = await web3Modal.connect();
     const web3 = new Web3(provider);
@@ -111,7 +119,7 @@ function App() {
     kings.forEach(king => {
       const level = +king[0].kingValue === 0 ? plantLevel1 : +king[0].kingValue === 1 ? plantLevel2 : +king[0].kingValue === 2 ? plantLevel3 : +king[0].kingValue === 3 ? plantLevel4 : +king[0].kingValue === 4 ? plantLevel5 : plantLevel6;
       newPlants.push({
-        level: 1,
+        level: +king[0].kingValue === 0 ? '0' : +king[0].kingValue === 1 ? '1' : +king[0].kingValue === 2 ? '2' : +king[0].kingValue === 3 ? '3' : +king[0].kingValue === 4 ? '4' : +king[0].kingValue === 5 ? '5' : '6',
         dailyRewards: '4% + 0.00%',
         plantLevel: level,
         lockedAmount: (+king[0][6] / 10**18).toFixed(0),
@@ -120,7 +128,7 @@ function App() {
         tokenName: king[0].name,
         kingValue: king[0].kingValue,
         time: new Date((+king[0].lastProcessingTimestamp + 14400) * 1000),
-        title: `${king[0].name} (${king[0].id})`
+        title: `${shortName(king[0].name)} (${king[0].id})`
       })
     });
     setPlants(newPlants);
@@ -232,8 +240,8 @@ function App() {
             xl={3}
             className='d-flex flex-column justify-content-between'
           >
-            <StatCard heading='$Price' list={priceStat} titleStyle='mb-0 fs-4' />
-            <StatCard heading='TVL' list={[{ title: `${(mainData.tvl / 10**18).toFixed(2)} SEEDS` }, { title: 'Comming Soon' }]} />
+            <StatCard heading='$1.5' list={priceStat} titleStyle='mb-0 fs-4' />
+            <StatCard heading='TVL' list={[{ title: `${(mainData.tvl / 10**18).toFixed(2)} SEEDS` }, { title: '$10 000' }]} />
             <StatCard
               heading='Total Beans'
               list={[{ title: mainData.totalBeans }]}
