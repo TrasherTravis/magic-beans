@@ -38,15 +38,9 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
   const [signedMessage, setSignedMessage] = useState('');
   const [verified, setVerified] = useState();
 
-  const connectWallet = async () => {
-    // WEB3_CONNECT_CACHED_PROVIDER "injected"
-    // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', 'injected');
-    // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
-    if (web3Modal.cachedProvider) {
-      // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
-      await web3Modal.connect();
-    }
+  const getWallet = async () => {
     try {
+      console.log('2')
       // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
       const provider = await web3Modal.connect();
       const library = new ethers.providers.Web3Provider(provider);
@@ -61,7 +55,24 @@ export const TopNavBar = ({ logo, connectButtonLogo, getAllData } ) => {
       console.log('err', error);
       setError(error);
     }
+  }
+
+  const connectWallet = async () => {
+    // WEB3_CONNECT_CACHED_PROVIDER "injected"
+    // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', 'injected');
+    // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
+    if (web3Modal.cachedProvider) {
+      console.log('this')
+      // localStorage.setItem('WEB3_CONNECT_CACHED_PROVIDER', '"injected"');
+      getWallet();
+    } else {
+      getWallet();
+    }
   };
+
+  useEffect(() => {
+    connectWallet();
+  }, [])
 
   const refreshState = () => {
     setAccount();

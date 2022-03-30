@@ -34,6 +34,7 @@ export const MintModal = (props) => {
     })
     .on('transactionHash', (hash) => {
       console.log(hash);
+      props.onHide();
     })
     .on('receipt', (receipt) => {
       console.log(receipt);
